@@ -9,9 +9,8 @@
   </p>
   <p>
     <a href="#-objetivo-del-proyecto"><strong>Objetivo</strong></a> ·
-    <a href="#-tecnologías-utilizadas"><strong>Tecnologías</strong></a> ·
+    <a href="#%EF%B8%8F-tecnologías-utilizadas"><strong>Tecnologías</strong></a> ·
     <a href="#-características-principales-mvp"><strong>Features</strong></a> ·
-    <a href="#-estructura-del-proyecto"><strong>Estructura</strong></a> ·
     <a href="#-acuerdos-de-colaboración"><strong>Acuerdos</strong></a> ·
     <a href="#-equipo-de-desarrollo"><strong>Equipo</strong></a>
   </p>
