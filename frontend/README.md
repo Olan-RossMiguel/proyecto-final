@@ -20,7 +20,7 @@ Antes de clonar y correr el proyecto, asegúrate de tener instalado en tu máqui
    ```
 2. **Ir a la carpeta del front**
     ```bash
-       cd mr-robots/frontend
+       cd proyecto-final/frontend
     ```
 3. **Instalar dependencias**
     ```bash
