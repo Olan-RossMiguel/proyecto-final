@@ -1,7 +1,20 @@
-import React from 'react'
+import { Hero } from './components/Hero'
+import './App.css'
 
 export const App = () => {
   return (
-    <div>App</div>
+    <>
+      <header>
+        {/* TODO el header */}
+      </header>
+
+      <main>
+        <Hero />
+      </main>
+
+      <footer>
+        <p>Mr.Robots© 2025</p>
+      </footer>
+    </>
   )
 }
