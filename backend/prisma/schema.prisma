@@ -1,0 +1,62 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           Int          @id @default(autoincrement())
+  name         String
+  email        String       @unique
+  passwordHash String
+  reviews      Review[]     @relation("UserReviews")
+  reviewLikes  ReviewLike[] @relation("UserLikes")
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+  
+  @@map("users")
+}
+
+model Movie {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String?
+  posterUrl   String?
+  releaseDate DateTime?
+  reviews     Review[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  @@map("movies")
+}
+
+model Review {
+  id        Int          @id @default(autoincrement())
+  rating    Int          // Considera agregar validación (1-5)
+  comment   String?
+  user      User         @relation(fields: [userId], references: [id], name: "UserReviews")
+  userId    Int
+  movie     Movie        @relation(fields: [movieId], references: [id])
+  movieId   Int
+  likes     ReviewLike[] 
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+  
+  @@unique([userId, movieId]) // Un usuario solo puede hacer una reseña por película
+  @@map("reviews")
+}
+
+model ReviewLike {
+  id       Int    @id @default(autoincrement()) // Agregar ID único para mejor manejo
+  user     User   @relation(fields: [userId], references: [id], name: "UserLikes")
+  userId   Int
+  review   Review @relation(fields: [reviewId], references: [id])
+  reviewId Int
+  createdAt DateTime @default(now())
+
+  @@unique([userId, reviewId]) // Restricción única para evitar likes duplicados
+  @@map("review_likes")
+}
