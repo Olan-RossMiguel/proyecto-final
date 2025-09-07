@@ -2,9 +2,12 @@ import js from '@eslint/js'
 import globals from 'globals'
 import reactHooks from 'eslint-plugin-react-hooks'
 import reactRefresh from 'eslint-plugin-react-refresh'
+import neostandard from 'neostandard'
 import { defineConfig, globalIgnores } from 'eslint/config'
 
 export default defineConfig([
+  ...neostandard(),
+>>>>>>> 2f5a52e8d144d63c689d0f49c7e9584650f0e615
   globalIgnores(['dist']),
   {
     files: ['**/*.{js,jsx}'],
