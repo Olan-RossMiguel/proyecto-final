@@ -2,11 +2,14 @@ import express from "express"
 import { PrismaClient } from "@prisma/client"
 import { config } from "dotenv"
 import cors from "cors"
+import cookieParser from "cookie-parser"
 
 import userRouter from "./routes/userRoutes.js"
 import movieRouter from "./routes/movieRoutes.js"
 import reviewRouter from "./routes/reviewRoutes.js"
 import reviewLikeRouter from "./routes/reviewLikeRoutes.js"
+import authRouter from "./routes/authRoutes.js"
+
 
 // Inicializar dotenv
 config()
@@ -17,12 +20,15 @@ const prisma = new PrismaClient()
 // Middlewares
 app.use(express.json())
 app.use(cors())
+app.use(cookieParser())
 
 // Conectar rutas
 app.use("/api/usuarios", userRouter)
 app.use("/api/movies", movieRouter)
 app.use("/api/reviews", reviewRouter)
 app.use("/api/likes", reviewLikeRouter)
+app.use("/api", authRouter)
+
 
 // Testear conexión a la DB al iniciar
 async function testDBConnection() {
