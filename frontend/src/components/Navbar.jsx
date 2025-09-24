@@ -47,7 +47,7 @@ export default function Navbar ({ isAuthenticated, user, onLogout }) {
   const linkIdle = 'text-gray-300 hover:text-emerald-400'
 
   return (
-    <header className='sticky top-0 z-40 w-full bg-black shadow-lg'>
+    <header className='sticky top-0 z-40 w-full bg-black/70 backdrop-blur-sm shadow-lg'>
       <nav className='mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3'>
         {/* Logo */}
         <Link

@@ -16,10 +16,10 @@ export default function MovieCard ({
   return (
     <Link
       to={`/movies/${movie.id}`}
-      className={`group relative flex h-full flex-col overflow-hidden rounded-xl bg-white shadow-md transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 ${className}`}
+      className={`group relative flex h-full flex-col overflow-hidden rounded-xl bg-slate-800/15 border border-black backdrop:blur-sm shadow-md transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 ${className}`}
     >
       {/* Póster (2:3 aprox.) */}
-      <div className='relative aspect-[2/3] w-full overflow-hidden bg-gray-100'>
+      <div className='relative aspect-[2/3] w-full overflow-hidden bg-gray-800/90'>
         <img
           src={movie?.posterUrl || defaultImage}
           alt={`Póster de ${movie?.title ?? 'Película'}`}
@@ -28,7 +28,7 @@ export default function MovieCard ({
           loading='lazy'
         />
         {releaseYear && (
-          <span className='absolute left-2 top-2 rounded-full bg-black/70 px-2 py-0.5 text-xs font-medium text-white'>
+          <span className='absolute left-2 top-2 rounded-full bg-emerald-500/90 px-2 py-0.5 text-xs font-medium text-white'>
             {releaseYear}
           </span>
         )}
@@ -36,7 +36,7 @@ export default function MovieCard ({
 
       {/* Contenido */}
       <div className='flex flex-1 flex-col p-4'>
-        <h2 className='mb-1 line-clamp-1 text-lg font-semibold text-gray-900'>
+        <h2 className='mb-1 line-clamp-1 text-2xl font-semibold text-white'>
           {movie?.title}
         </h2>
 
@@ -60,13 +60,13 @@ export default function MovieCard ({
         </div>
 
         {/* Descripción */}
-        <p className='mb-3 line-clamp-2 flex-1 text-sm text-gray-700'>
+        <p className='mb-3 line-clamp-2 flex-1 text-sm text-gray-300'>
           {movie?.description}
         </p>
 
         {/* CTA */}
         <div className='mt-auto'>
-          <span className='inline-block w-full rounded-lg bg-emerald-600 px-3 py-2 text-center text-sm font-semibold text-white transition-colors group-hover:bg-emerald-700'>
+          <span className='inline-block w-full rounded-lg bg-emerald-500 px-3 py-2 text-center text-sm font-semibold text-white transition-colors group-hover:bg-emerald-700'>
             Ver detalles
           </span>
         </div>
