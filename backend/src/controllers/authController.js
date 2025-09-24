@@ -13,7 +13,7 @@ export const register = async (req, res) => {
         const existingUser = await prisma.user.findUnique({ where: { email } })
         if (existingUser) return res.status(400).json({ message: "El email ya está registrado" })
 
-        // Hashear contraseña
+        // Hashea la contraseña
         const passwordHash = await bcrypt.hash(password, 10)
 
         // Crear usuario
@@ -84,14 +84,23 @@ export const logout = (req, res) => {
 // Perfil
 export const profile = async (req, res) => {
   try {
-    const userFound = await prisma.user.findUnique({ where: { id: req.user.id } })
+    const userFound = await prisma.user.findUnique({ 
+      where: { id: req.user.id },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        createdAt: true,
+        updatedAt: true,
+      }
+    })
 
     if (!userFound) return res.status(400).json({ message: "Usuario no encontrado" })
 
-    res.json({ message: `Bienvenido, ${userFound.name}` })
+    // Devuelve los datos del usuario, no solo un mensaje
+    res.json(userFound)
 
   } catch (error) {
     res.status(500).json({ message: error.message })
   }
 }
-

@@ -42,4 +42,4 @@ Antes de clonar y correr el proyecto, asegúrate de tener instalado en tu máqui
     feature/movies-api
     fix/header-styles
 - Verifica que el codigo esta formateado segun el linter antes de subir al repo.
->>>>>>> 2f5a52e8d144d63c689d0f49c7e9584650f0e615
+

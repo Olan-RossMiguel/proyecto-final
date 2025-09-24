@@ -1,5 +1,6 @@
 import { Router } from "express"
 import { PrismaClient } from "@prisma/client"
+import { getAllMovies } from "../models/movieModel.js"
 
 const router = Router()
 const prisma = new PrismaClient()
@@ -18,7 +19,7 @@ router.post("/", async (req, res) => {
 // Obtener todas las películas
 router.get("/", async (req, res) => {
   try {
-    const movies = await prisma.movie.findMany()
+    const movies = await getAllMovies() 
     res.json(movies)
   } catch (error) {
     console.error(error)

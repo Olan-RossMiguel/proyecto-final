@@ -7,7 +7,7 @@ import { defineConfig, globalIgnores } from 'eslint/config'
 
 export default defineConfig([
   ...neostandard(),
->>>>>>> 2f5a52e8d144d63c689d0f49c7e9584650f0e615
+
   globalIgnores(['dist']),
   {
     files: ['**/*.{js,jsx}'],
