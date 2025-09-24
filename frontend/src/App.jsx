@@ -3,6 +3,7 @@ import Login from './pages/Login'
 import Register from './pages/Register'
 import Home from './pages/Home'
 import Layout from '../src/layouts/Layout' // ← Nuevo componente
+import { Profile } from './pages/Profile'
 
 export default function App () {
   return (
@@ -27,14 +28,15 @@ export default function App () {
           <Layout>
             <MovieDetail />
           </Layout>
-        } />
+        } /> */}
 
-        <Route path='/profile' element={
-          <Layout>
-            <Profile />
-          </Layout>
-        } />
-        */}
+        <Route
+          path='/profile' element={
+            <Layout>
+              <Profile />
+            </Layout>
+        }
+        />
 
         {/* Ruta por defecto */}
         <Route path='*' element={<Navigate to='/' replace />} />
