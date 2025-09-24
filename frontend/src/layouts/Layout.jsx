@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import Navbar from '../components/Navbar'
+import { Loader } from 'lucide-react'
 
 export default function Layout ({ children }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
@@ -45,9 +46,9 @@ export default function Layout ({ children }) {
 
   if (loading) {
     return (
-      <div className='min-h-screen bg-white'>
+      <div className='min-h-screen bg-black'>
         <div className='flex items-center justify-center min-h-screen'>
-          <div className='text-gray-900'>Cargando...</div>
+          <Loader className='animate-spin text-emerald-600' size={150} />
         </div>
       </div>
     )

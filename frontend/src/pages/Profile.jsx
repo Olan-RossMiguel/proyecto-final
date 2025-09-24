@@ -1,4 +1,19 @@
+import { HatGlasses, Loader } from 'lucide-react'
 import React, { useEffect, useState } from 'react'
+
+const InfoPerfil = ({ user }) => {
+  const fechaIso = user.createdAt
+  const fecha = new Date(fechaIso)
+
+  return (
+    <div className='w-full px-10 py-10 bg-black/10 rounded-xl border border-slate-800 backdrop-blur-md flex flex-col justify-center items-center'>
+      <HatGlasses size={90} strokeWidth={1} />
+      <h1 className='text-3xl'>{user.name}</h1>
+      <h2 className='italic text-gray-600 pt-3'><span className='text-emerald-600 font-bold'>#Flicker</span> <span className='text-gray-300 font-normal'>desde:</span> {fecha.toLocaleString()}</h2>
+      <p className='text-gray-300'>Direccion de correo: {user.email}</p>
+    </div>
+  )
+}
 
 export const Profile = () => {
   const [user, setUser] = useState()
@@ -7,9 +22,10 @@ export const Profile = () => {
   useEffect(() => {
     async function checkAuth () {
       try {
-        const API_BASE = import.meta.env?.VITE_API_BASE || 'http://localhost:3000/api'
+        const API_BASE =
+          import.meta.env?.VITE_API_BASE || 'http://localhost:3000/api'
         const res = await fetch(`${API_BASE}/profile`, {
-          credentials: 'include'
+          credentials: 'include',
         })
         if (res.ok) {
           const userData = await res.json()
@@ -30,7 +46,8 @@ export const Profile = () => {
 
   return (
     <>
-      <div className='fixed inset-0 w-full h-full bg-white dark:bg-gray-950'>
+      {/* bg */}
+      <div className='fixed inset-0 w-full h-full bg-white dark:bg-gray-950 z-0'>
         <svg
           className='absolute inset-0 w-full h-full opacity-[0.15] dark:opacity-[0.07]'
           xmlns='http://www.w3.org/2000/svg'
@@ -50,7 +67,12 @@ export const Profile = () => {
           <div className='absolute inset-0 bg-[radial-gradient(circle_at_70%_60%,rgba(253,224,71,0.08),transparent_40%)] dark:bg-[radial-gradient(circle_at_70%_60%,rgba(250,204,21,0.08),transparent_40%)]' />
         </div>
       </div>
-      <div />
+
+      {/* Main container */}
+      <div className='relative z-30 p-20 text-amber-50'>
+        {loading ? (<div className='flex justify-center items-center'><Loader className='animate-spin' size={50} /></div>) : (<InfoPerfil user={user} />)}
+      </div>
     </>
+
   )
 }
