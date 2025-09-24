@@ -79,13 +79,13 @@ export default function Home () {
                 {Array.from({ length: 10 }).map((_, i) => (
                   <div
                     key={i}
-                    className='animate-pulse overflow-hidden rounded-xl bg-white shadow'
+                    className='animate-pulse overflow-hidden rounded-xl bg-gray-600 shadow'
                   >
-                    <div className='aspect-[2/3] w-full bg-gray-200' />
+                    <div className='aspect-[2/3] w-full bg-gray-800' />
                     <div className='space-y-2 p-4'>
-                      <div className='h-4 w-3/4 rounded bg-gray-200' />
-                      <div className='h-3 w-1/2 rounded bg-gray-200' />
-                      <div className='h-3 w-full rounded bg-gray-200' />
+                      <div className='h-4 w-3/4 rounded bg-gray-800' />
+                      <div className='h-3 w-1/2 rounded bg-gray-800' />
+                      <div className='h-3 w-full rounded bg-gray-800' />
                     </div>
                   </div>
                 ))}

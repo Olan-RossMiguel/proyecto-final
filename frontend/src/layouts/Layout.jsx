@@ -20,6 +20,7 @@ export default function Layout ({ children }) {
           setIsAuthenticated(true)
         }
       } catch (error) {
+        console.error('Error al verificar la autenticación:', error)
       } finally {
         setLoading(false)
       }
@@ -38,6 +39,7 @@ export default function Layout ({ children }) {
       setUser(null)
       window.location.href = '/login'
     } catch (error) {
+      console.error('Error al cerrar sesión:', error)
     }
   }
 
