@@ -1,7 +1,7 @@
 // src/components/Navbar.jsx (sin lógica de auth)
 import { useEffect, useRef, useState } from 'react'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
-import { Menu, X, User, LogOut, User as ProfileIcon } from 'lucide-react'
+import { Menu, X, User, LogOut, Film, User as ProfileIcon } from 'lucide-react'
 
 const LOGO_URL = 'https://i.imgur.com/vF3eXDG.png'
 
@@ -48,7 +48,7 @@ export default function Navbar ({ isAuthenticated, user, onLogout }) {
 
   return (
     <header className='sticky top-0 z-40 w-full bg-black/70 backdrop-blur-sm shadow-lg'>
-      <nav className='mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3'>
+      <nav className='mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 h-14'>
         {/* Logo */}
         <Link
           to='/'
@@ -66,13 +66,14 @@ export default function Navbar ({ isAuthenticated, user, onLogout }) {
         </Link>
 
         {/* Centro: Links de navegación (desktop) */}
-        <div className='hidden items-center gap-2 sm:flex'>
+        <div className='items-center h-max m-0 flex'>
           <NavLink
             to='/'
             className={({ isActive }) =>
-              `${linkBase} ${isActive ? linkActive : linkIdle}`}
+              `${linkBase} ${isActive ? linkActive : linkIdle} flex gap-2 align-center justify-center text-center items-center`}
           >
-            Películas
+            <Film strokeWidth={1.5} size={17} />
+            <span>Películas</span>
           </NavLink>
         </div>
 

@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { Star } from 'lucide-react'
+import { BookOpenText, Star } from 'lucide-react'
 
 export default function MovieCard ({
   movie,
@@ -66,7 +66,8 @@ export default function MovieCard ({
 
         {/* CTA */}
         <div className='mt-auto'>
-          <span className='inline-block w-full rounded-lg bg-emerald-500 px-3 py-2 text-center text-sm font-semibold text-white transition-colors group-hover:bg-emerald-700'>
+          <span className='w-full rounded-lg bg-emerald-500 px-3 py-2 text-center text-sm font-semibold text-white transition-colors group-hover:bg-emerald-700 flex gap-2 align-center justify-center items-center'>
+            <BookOpenText strokeWidth={2.5} size={14} />
             Ver detalles
           </span>
         </div>
