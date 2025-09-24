@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react'
 import Navbar from '../components/Navbar'
+
 import { Loader } from 'lucide-react'
+
+import Footer from '../components/Footer'
 
 export default function Layout ({ children }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
@@ -65,6 +68,7 @@ export default function Layout ({ children }) {
       <main className='pt-0'>
         {children}
       </main>
+      <Footer />
     </div>
   )
 }
