@@ -26,6 +26,7 @@ export default function Navbar ({ isAuthenticated, user, onLogout }) {
   // Este use Effect redirige al login si no hay usuario para evitar bug
   // de falta de login.
   useEffect(() => {
+    // si no hay user, redirigir a login
     if (!user) {
       navigate('/login')
     }
