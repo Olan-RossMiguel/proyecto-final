@@ -1,4 +1,11 @@
-import { Loader, HatGlasses } from 'lucide-react'
+import {
+  Loader,
+  HatGlasses,
+  CircleUser,
+  Skull,
+  TriangleAlert,
+  Pencil,
+} from 'lucide-react'
 import { api } from '../api/client'
 import { useState, useEffect } from 'react'
 
@@ -38,15 +45,49 @@ export const InfoPerfil = () => {
 
   //   Animacion de carga, se muestra si loading es true.
   if (loading) {
-    return (<div className='flex justify-center items-center'><Loader className='animate-spin' size={50} /></div>)
+    return (
+      <div className='flex justify-center items-center'>
+        <Loader className='animate-spin' size={50} />
+      </div>
+    )
   }
 
   return (
-    <div className='w-full px-10 py-10 bg-black/10 rounded-xl border border-slate-800 backdrop-blur-md flex flex-col justify-center items-center'>
-      <HatGlasses size={90} strokeWidth={1} />
-      <h1 className='text-3xl'>{user.name}</h1>
-      <h2 className='italic text-gray-600 pt-3'><span className='text-emerald-600 font-bold'>#Flicker</span> <span className='text-gray-300 font-normal'>desde:</span> {fecha.toLocaleString()}</h2>
-      <p className='text-gray-300'>Direccion de correo: {user.email}</p>
+    <div className='w-full px-10 py-10 bg-black/10 rounded-xl border border-slate-800 backdrop-blur-md flex justify-center items-center gap-10'>
+      <div className='flex flex-col justify-center items-start gap-1 border border-emerald-700 rounded-2xl px-4 py-3 bg-black/70 hover:scale-102 transition-all duration-400'>
+        <div className='flex items-center gap-3'>
+          {/* TODO: añadir logica cuando se integre foto de perfil */}
+          <CircleUser size={50} strokeWidth={1} />
+
+          <div>
+            <h1 className='text-xl font-bold bg-gradient-to-r from-emerald-400 to-cyan-300 bg-clip-text text-transparent'>{user.name}</h1>
+            <p className='text-gray-400'>{user.email}</p>
+          </div>
+        </div>
+
+        <h2 className=' text-gray-200'>
+          <span className='text-gray-400 font-normal'>Flicker desde: </span>
+          {fecha.toLocaleDateString()}
+        </h2>
+
+        <div className='flex flex-col w-full gap-2'>
+
+          <button className='flex justify-center items-center border-gray-600 text-gray-400 hover:bg-emerald-950 hover:border-emerald-500 border rounded-xl p-2 hover:text-emerald-500 gap-1 transition-all duration-200'>
+            <Pencil strokeWidth={2} size={17} />
+            <span>Editar perfil</span>
+          </button>
+
+          <button className='flex justify-center items-center border-gray-600 text-gray-400 hover:bg-red-950 hover:border-red-500 border rounded-xl p-2 hover:text-red-500 gap-1 transition-all duration-200'>
+            <TriangleAlert strokeWidth={2} size={18} />
+            <span>Eliminar perfil</span>
+          </button>
+        </div>
+      </div>
+
+      <div>
+        <p>            Listas, contenido y comentarios
+        </p>
+      </div>
     </div>
   )
 }
