@@ -8,15 +8,15 @@ import { api } from '../api/client'
 import { useState, useEffect } from 'react'
 
 // --- Clases de estilo para Tailwind CSS ---
-const containerStyles = 'w-full px-10 py-10 bg-black/10 rounded-xl border border-slate-800 backdrop-blur-md flex justify-center items-center gap-10'
-const cardStyles = 'flex flex-col justify-center items-start gap-1 border border-gray-700 rounded-2xl px-4 py-3 hover:scale-102 transition-all duration-400'
-const nameStyles = 'text-xl font-bold bg-gradient-to-r from-emerald-400 to-cyan-300 bg-clip-text text-transparent'
-const emailStyles = 'text-gray-400'
-const dateLabelStyles = 'text-gray-400 font-normal'
-const dateTextStyles = 'text-gray-200'
-const buttonBaseStyles = 'flex justify-center items-center border border-gray-600 text-gray-400 rounded-xl p-2 gap-1 transition-all duration-200'
-const editButtonStyles = `${buttonBaseStyles} hover:bg-emerald-950 hover:border-emerald-500 hover:text-emerald-500`
-const deleteButtonStyles = `${buttonBaseStyles} hover:bg-red-950 hover:border-red-500 hover:text-red-500`
+const containerStyles = 'w-full px-10 py-10 rounded-xl border border-black flex justify-center items-center gap-10'
+const cardStyles = 'flex flex-col justify-center items-start gap-2 rounded-2xl px-4 py-3 hover:shadow-2xl/90 transition-all duration-400 shadow-xl/40 border border-black bg-black/15'
+const nameStyles = 'text-xl font-bold text-emerald-400'
+const emailStyles = 'text-gray-200 font-thin'
+const dateLabelStyles = 'text-gray-200 font-thin'
+const dateTextStyles = 'text-gray-200 font-thin'
+const buttonBaseStyles = 'flex justify-center items-center border rounded-2xl p-1 gap-1 transition-all duration-200 font-thin'
+const editButtonStyles = `${buttonBaseStyles} hover:bg-emerald-950 border-emerald-500 text-emerald-500`
+const deleteButtonStyles = `${buttonBaseStyles} hover:bg-red-950 border-red-500 text-red-500`
 
 /**
  * Componente para mostrar la información del perfil de un usuario.
@@ -69,7 +69,7 @@ export const InfoPerfil = () => {
 
         <div className='flex items-center gap-3'>
           {/* TODO: añadir logica cuando se integre foto de perfil */}
-          <CircleUser size={50} strokeWidth={1} />
+          <CircleUser size={50} strokeWidth={1} className='text-emerald-500' />
 
           <div>
             <h1 className={nameStyles}>{user.name}</h1>
