@@ -5,6 +5,16 @@ import { Menu, X, User, LogOut, Film, User as ProfileIcon } from 'lucide-react'
 
 const LOGO_URL = 'https://i.imgur.com/vF3eXDG.png'
 
+/**
+ * Barra de navegación principal de la aplicación.
+ * Muestra el logo, enlaces de navegación y opciones de usuario (perfil, cerrar sesión).
+ * Se adapta a vistas de escritorio y móvil.
+ * @param {object} props - Propiedades del componente.
+ * @param {boolean} props.isAuthenticated - Indica si el usuario está autenticado.
+ * @param {object} [props.user] - Objeto con la información del usuario autenticado.
+ * @param {Function} props.onLogout - Función para manejar el cierre de sesión.
+ * @returns {JSX.Element} El componente de la barra de navegación.
+ */
 export default function Navbar ({ isAuthenticated, user, onLogout }) {
   const [open, setOpen] = useState(false)
   const [profileOpen, setProfileOpen] = useState(false)
@@ -25,6 +35,7 @@ export default function Navbar ({ isAuthenticated, user, onLogout }) {
 
   // Este use Effect redirige al login si no hay usuario para evitar bug
   // de falta de login.
+  // Este useEffect redirige al login si el usuario no está disponible.
   useEffect(() => {
     // si no hay user, redirigir a login
     if (!user) {

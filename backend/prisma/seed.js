@@ -1,6 +1,10 @@
 import { PrismaClient } from '@prisma/client'
 import bcrypt from "bcryptjs"
 
+/**
+ * Script para poblar la base de datos con datos iniciales (seeding).
+ * Crea usuarios, películas, reseñas y likes de reseñas para desarrollo y pruebas.
+ */
 
 const prisma = new PrismaClient()
 

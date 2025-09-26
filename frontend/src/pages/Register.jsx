@@ -3,6 +3,12 @@ import { Link, useNavigate } from 'react-router-dom'
 import AuthLayout from '../layouts/AuthLayout'
 import { api } from '../api/client'
 
+/**
+ * Página de registro de nuevos usuarios.
+ * Contiene un formulario para que los usuarios creen una nueva cuenta.
+ * Maneja el estado del formulario, la carga y los errores de la petición.
+ * @returns {JSX.Element} El componente de la página de registro.
+ */
 export default function Register () {
   const nav = useNavigate()
   const [form, setForm] = useState({
