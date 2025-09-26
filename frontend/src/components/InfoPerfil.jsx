@@ -1,21 +1,19 @@
-import {
-  Loader,
-  CircleUser,
-  TriangleAlert,
-  Pencil,
-} from 'lucide-react'
+import { Loader, CircleUser, TriangleAlert, Pencil, PencilLine, Mail } from 'lucide-react'
 import { api } from '../api/client'
 import { useState, useEffect } from 'react'
 
 // --- Clases de estilo para Tailwind CSS ---
-const containerStyles = 'w-full px-10 py-10 rounded-xl border border-black flex justify-center items-center gap-10'
-const cardStyles = 'flex flex-col justify-center items-start gap-2 rounded-2xl px-4 py-3 hover:shadow-2xl/90 transition-all duration-400 shadow-xl/40 border border-black bg-black/15'
-const nameStyles = 'text-xl font-bold text-emerald-400'
-const emailStyles = 'text-gray-200 font-thin'
+const containerStyles =
+  'w-full px-10 py-10 rounded-xl border border-black flex justify-center items-center gap-10'
+const cardStyles =
+  'flex flex-col justify-center items-start gap-2 rounded-2xl px-4 py-3 hover:shadow-2xl/90 transition-all duration-400 shadow-xl/40 border border-black bg-black/15'
+const nameStyles = 'text-xl font-bold text-white w-auto min-w-0'
+const emailStyles = 'text-gray-600 font-medium px-2'
 const dateLabelStyles = 'text-gray-200 font-thin'
 const dateTextStyles = 'text-gray-200 font-thin'
-const buttonBaseStyles = 'flex justify-center items-center border rounded-2xl p-1 gap-1 transition-all duration-200 font-thin'
-const editButtonStyles = `${buttonBaseStyles} hover:bg-emerald-950 border-emerald-500 text-emerald-500`
+const buttonBaseStyles =
+  'flex justify-center items-center border rounded-2xl p-1 gap-1 transition-all duration-200'
+const editButtonStyles = `${buttonBaseStyles} text-sm text-gray-600 font-medium hover:cursor-pointer hover:text-emerald-500 border-none rounded-xl`
 const deleteButtonStyles = `${buttonBaseStyles} hover:bg-red-950 border-red-500 text-red-500`
 
 /**
@@ -60,20 +58,35 @@ export const InfoPerfil = () => {
 
   return (
     <div className={containerStyles}>
-
       {/* ==========+ Contenedor de informacion de usuario +============ */}
 
-      <div className={cardStyles}>
-
+      <form className={cardStyles}>
         {/* Foto de perfil, nombre y correo */}
 
         <div className='flex items-center gap-3'>
           {/* TODO: añadir logica cuando se integre foto de perfil */}
-          <CircleUser size={50} strokeWidth={1} className='text-emerald-500' />
+          <CircleUser size={50} strokeWidth={1} />
 
           <div>
-            <h1 className={nameStyles}>{user.name}</h1>
-            <p className={emailStyles}>{user.email}</p>
+            <div className='flex text-center align-center justify-center gap-3 border-b border-gray-800 px-2'>
+              <input
+                type='text'
+                className={nameStyles}
+                value={user.name}
+                placeholder={user.name}
+                size={user.name.length - 3 || 1}
+              />
+              <button className={editButtonStyles}>
+                <span>
+                  <PencilLine strokeWidth={2} size={15} />
+                </span>
+                <span>Editar</span>
+              </button>
+            </div>
+            <div className='flex items-center justify-between w-full'>
+              <p className={emailStyles}>{user.email}</p>
+              <Mail strokeWidth={2} size={15} className='text-gray-600 mr-3' />
+            </div>
           </div>
         </div>
 
@@ -86,20 +99,14 @@ export const InfoPerfil = () => {
 
         {/* Contenedor de botones de editar y eliminar perfil */}
 
-        <div className='flex flex-col w-full gap-2'>
-
-          <button className={editButtonStyles}>
-            <Pencil strokeWidth={2} size={17} />
-            <span>Editar perfil</span>
-          </button>
+        <div className='flex flex-col w-full gap-2 '>
 
           <button className={deleteButtonStyles}>
             <TriangleAlert strokeWidth={2} size={18} />
             <span>Eliminar perfil</span>
           </button>
         </div>
-
-      </div>
+      </form>
 
       {/* ++++++++++++++= Contenedor de listas, contenido y comentarios =+++++++++++++ */}
 
