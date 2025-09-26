@@ -22,6 +22,12 @@ async function request (path, { method = 'GET', body } = {}) {
 export const api = {
   login: (payload) => request('/login', { method: 'POST', body: payload }),
   register: (payload) => request('/register', { method: 'POST', body: payload }),
-  me: () => request('/me'),
+
+  // Esta ruta hace referencia el archivo authRoutes. Y es un metodo para consumir la
+  // info de usuario y esta protegida pues revisa token.
+  // Antes apuntaba a /me, pero esa ruta no exista e intuyo que su proposito era
+  // acceder a la info de usuario.
+  profile: () => request('/profile'),
+
   logout: () => request('/logout', { method: 'POST' }),
 }

@@ -44,6 +44,10 @@ export const Profile = () => {
     checkAuth()
   }, [])
 
+  useEffect(() => {
+    console.log(user)
+  }, [user])
+
   return (
     <>
       {/* Contenedor del fondo animado y decorativo */}
