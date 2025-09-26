@@ -1,4 +1,3 @@
-// src/components/Navbar.jsx (sin lógica de auth)
 import { useEffect, useRef, useState } from 'react'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
 import { Menu, X, User, LogOut, Film, User as ProfileIcon } from 'lucide-react'
@@ -19,7 +18,6 @@ export default function Navbar ({ isAuthenticated, user, onLogout }) {
   const [open, setOpen] = useState(false)
   const [profileOpen, setProfileOpen] = useState(false)
   const profileRef = useRef(null)
-  // Importacion de navigate hook
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -33,8 +31,6 @@ export default function Navbar ({ isAuthenticated, user, onLogout }) {
     return () => document.removeEventListener('mousedown', handleClickOutside)
   }, [])
 
-  // Este use Effect redirige al login si no hay usuario para evitar bug
-  // de falta de login.
   // Este useEffect redirige al login si el usuario no está disponible.
   useEffect(() => {
     // si no hay user, redirigir a login
