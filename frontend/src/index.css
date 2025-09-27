@@ -1,1 +1,62 @@
 @import "tailwindcss";
+
+@theme {
+  --animate-sparkle: sparkle 1.5s ease-out forwards;
+
+  @keyframes sparkle {
+    0% {
+      transform: scale(1);
+      text-shadow: 0 0 2px #ff9ff3, 0 0 5px #ff4d6d;
+    }
+    10% {
+      text-shadow: 0 0 4px #6ee7b7, 0 0 8px #10b981, 0 0 14px #34d399;
+    }
+    20% {
+      text-shadow: 0 0 5px #fab1a0, 0 0 10px #fd79a8, 0 0 16px #ff9ff3;
+    }
+    30% {
+      text-shadow: 0 0 6px #6ee7b7, 0 0 12px #10b981, 0 0 20px #34d399;
+    }
+    40% {
+      text-shadow: 0 0 6px #ffeaa7, 0 0 12px #f9ca24, 0 0 18px #fab1a0;
+    }
+    50% {
+      text-shadow: 0 0 8px #6ee7b7, 0 0 14px #10b981, 0 0 22px #34d399;
+    }
+
+    55% {
+      text-shadow: 0 0 6px #dfe6e9, 0 0 12px #6c5ce7, 0 0 18px #a29bfe;
+    }
+    60% {
+      text-shadow: 0 0 8px #6ee7b7, 0 0 14px #10b981, 0 0 22px #34d399;
+    }
+    65% {
+      text-shadow: 0 0 6px #fab1a0, 0 0 12px #ff7675, 0 0 18px #ff4d6d;
+    }
+    68% {
+      text-shadow: 0 0 7px #6ee7b7, 0 0 12px #10b981, 0 0 20px #34d399;
+    }
+    70% {
+      text-shadow: 0 0 6px #ffeaa7, 0 0 12px #f9ca24, 0 0 18px #fab1a0;
+    }
+    71% {
+      text-shadow: 0 0 7px #6ee7b7, 0 0 12px #10b981, 0 0 20px #34d399;
+    }
+    72% {
+      transform: scale(1.03);
+      text-shadow: 0 0 3px #ff7675, 0 0 6px #fd79a8, 0 0 10px #fab1a0;
+    }
+    73% {
+      text-shadow: 0 0 6px #6ee7b7, 0 0 10px #10b981, 0 0 18px #34d399;
+    }
+    74% {
+      transform: scale(0.97);
+      text-shadow: 0 0 20px #ffff, 0 0 20px #ffff, 0 0 20px #ffff;
+    }
+
+    100% {
+      transform: scale(1);
+      text-shadow: none;
+    }
+  }
+}

@@ -1,4 +1,13 @@
-import { Loader, CircleUser, TriangleAlert, Pencil, PencilLine, Mail } from 'lucide-react'
+import {
+  Loader,
+  CircleUser,
+  TriangleAlert,
+  Pencil,
+  PencilLine,
+  Mail,
+  Popcorn,
+  Clock,
+} from 'lucide-react'
 import { api } from '../api/client'
 import { useState, useEffect } from 'react'
 
@@ -9,8 +18,8 @@ const cardStyles =
   'flex flex-col justify-center items-start gap-2 rounded-2xl px-4 py-3 hover:shadow-2xl/90 transition-all duration-400 shadow-xl/40 border border-black bg-black/15'
 const nameStyles = 'text-xl font-bold text-white w-auto min-w-0'
 const emailStyles = 'text-gray-600 font-medium px-2'
-const dateLabelStyles = 'text-gray-200 font-thin'
-const dateTextStyles = 'text-gray-200 font-thin'
+const dateLabelStyles = 'text-gray-200 font-normal'
+const dateTextStyles = 'text-gray-200 font-bold'
 const buttonBaseStyles =
   'flex justify-center items-center border rounded-2xl p-1 gap-1 transition-all duration-200'
 const editButtonStyles = `${buttonBaseStyles} text-sm text-gray-600 font-medium hover:cursor-pointer hover:text-emerald-500 border-none rounded-xl`
@@ -91,16 +100,17 @@ export const InfoPerfil = () => {
         </div>
 
         {/* Fecha de creacion del perfil */}
-
-        <h2 className={dateTextStyles}>
-          <span className={dateLabelStyles}>Flicker desde: </span>
-          {fecha.toLocaleDateString()}
-        </h2>
+        <div className='flex text-center align-center items-center justify-between w-full gap-1 animate-sparkle'>
+          <div className='flex text-center align-center items-center gap-1'>
+            <Clock strokeWidth={2} size={13} />
+            <span className={dateLabelStyles}>Flicker desde: </span>
+          </div>
+          <h2 className={dateTextStyles}>{fecha.toLocaleDateString()}</h2>
+        </div>
 
         {/* Contenedor de botones de editar y eliminar perfil */}
 
         <div className='flex flex-col w-full gap-2 '>
-
           <button className={deleteButtonStyles}>
             <TriangleAlert strokeWidth={2} size={18} />
             <span>Eliminar perfil</span>
