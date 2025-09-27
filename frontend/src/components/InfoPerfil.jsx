@@ -10,6 +10,7 @@ import {
 } from 'lucide-react'
 import { api } from '../api/client'
 import { useState, useEffect } from 'react'
+import { ModalVerificarAuth } from './ModalVerificarAuth'
 
 // --- Clases de estilo para Tailwind CSS ---
 const containerStyles =
@@ -23,7 +24,11 @@ const dateTextStyles = 'text-gray-200 font-bold'
 const buttonBaseStyles =
   'flex justify-center items-center border rounded-2xl p-1 gap-1 transition-all duration-200'
 const editButtonStyles = `${buttonBaseStyles} text-sm text-gray-600 font-medium hover:cursor-pointer hover:text-emerald-500 border-none rounded-xl`
-const deleteButtonStyles = `${buttonBaseStyles} hover:bg-red-950 border-red-500 text-red-500`
+const deleteButtonStyles = `${buttonBaseStyles} hover:bg-red-950 border-red-600 text-red-600`
+
+const formHandler = (e) => {
+  e.preventDefault()
+}
 
 /**
  * Componente para mostrar la información del perfil de un usuario.
@@ -35,6 +40,7 @@ export const InfoPerfil = () => {
   const [user, setUser] = useState(null)
   const [fecha, setFecha] = useState(null)
   const [loading, setLoading] = useState(true)
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
   // Función asíncrona para verificar la autenticación y obtener los datos del perfil.
   useEffect(() => {
@@ -66,63 +72,72 @@ export const InfoPerfil = () => {
   }
 
   return (
-    <div className={containerStyles}>
-      {/* ==========+ Contenedor de informacion de usuario +============ */}
+    <>
 
-      <form className={cardStyles}>
-        {/* Foto de perfil, nombre y correo */}
+      <div className={containerStyles}>
+        {/* Renderizado condicional de modal */}
+        {isModalOpen && <ModalVerificarAuth user={user} closeModal={() => setIsModalOpen(false)} />}
 
-        <div className='flex items-center gap-3'>
-          {/* TODO: añadir logica cuando se integre foto de perfil */}
-          <CircleUser size={50} strokeWidth={1} />
+        {/* ==========+ Contenedor de informacion de usuario +============ */}
+        <form className={cardStyles} onSubmit={formHandler}>
+          {/* Foto de perfil, nombre y correo */}
 
-          <div>
-            <div className='flex text-center align-center justify-center gap-3 border-b border-gray-800 px-2'>
-              <input
-                type='text'
-                className={nameStyles}
-                value={user.name}
-                placeholder={user.name}
-                size={user.name.length - 3 || 1}
-              />
-              <button className={editButtonStyles}>
-                <span>
-                  <PencilLine strokeWidth={2} size={15} />
-                </span>
-                <span>Editar</span>
-              </button>
-            </div>
-            <div className='flex items-center justify-between w-full'>
-              <p className={emailStyles}>{user.email}</p>
-              <Mail strokeWidth={2} size={15} className='text-gray-600 mr-3' />
+          <div className='flex items-center gap-3'>
+            {/* TODO: añadir logica cuando se integre foto de perfil */}
+            <CircleUser size={50} strokeWidth={1} />
+
+            <div>
+              <div className='flex text-center align-center justify-center gap-3 border-b border-gray-800 px-2'>
+                <input
+                  type='text'
+                  className={nameStyles}
+                  value={user.name}
+                  placeholder={user.name}
+                  size={user.name.length - 3 || 1}
+                />
+                <button className={editButtonStyles}>
+                  <span>
+                    <PencilLine strokeWidth={2} size={15} />
+                  </span>
+                  <span>Editar</span>
+                </button>
+              </div>
+              <div className='flex items-center justify-between w-full'>
+                <p className={emailStyles}>{user.email}</p>
+                <Mail
+                  strokeWidth={2}
+                  size={15}
+                  className='text-gray-600 mr-3'
+                />
+              </div>
             </div>
           </div>
-        </div>
 
-        {/* Fecha de creacion del perfil */}
-        <div className='flex text-center align-center items-center justify-between w-full gap-1 animate-sparkle'>
-          <div className='flex text-center align-center items-center gap-1'>
-            <Clock strokeWidth={2} size={13} />
-            <span className={dateLabelStyles}>Flicker desde: </span>
+          {/* Fecha de creacion del perfil */}
+          <div className='flex text-center align-center items-center justify-between w-full gap-1 animate-sparkle'>
+            <div className='flex text-center align-center items-center gap-1'>
+              <Clock strokeWidth={2} size={13} />
+              <span className={dateLabelStyles}>Flicker desde: </span>
+            </div>
+            <h2 className={dateTextStyles}>{fecha.toLocaleDateString()}</h2>
           </div>
-          <h2 className={dateTextStyles}>{fecha.toLocaleDateString()}</h2>
+
+          {/* Contenedor de botones de editar y eliminar perfil */}
+
+          <div className='flex flex-col w-full gap-2 '>
+            <button className={deleteButtonStyles} onClick={() => setIsModalOpen(true)}>
+              <TriangleAlert strokeWidth={2} size={18} />
+              <span>Eliminar perfil</span>
+            </button>
+          </div>
+        </form>
+
+        {/* ++++++++++++++= Contenedor de listas, contenido y comentarios =+++++++++++++ */}
+
+        <div>
+          <p> Listas, contenido y comentarios </p>
         </div>
-
-        {/* Contenedor de botones de editar y eliminar perfil */}
-
-        <div className='flex flex-col w-full gap-2 '>
-          <button className={deleteButtonStyles}>
-            <TriangleAlert strokeWidth={2} size={18} />
-            <span>Eliminar perfil</span>
-          </button>
-        </div>
-      </form>
-
-      {/* ++++++++++++++= Contenedor de listas, contenido y comentarios =+++++++++++++ */}
-
-      <div>
-        <p> Listas, contenido y comentarios </p>
       </div>
-    </div>
+    </>
   )
 }
