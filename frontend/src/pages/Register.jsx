@@ -75,7 +75,7 @@ export default function Register () {
             value={form.name}
             onChange={onChange}
             required
-            className='mt-1 w-full rounded-lg border border-slate-600 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-500 placeholder:text-gray-400 placeholder:italic placeholder:text-sm bg-transparent text-gray-200'
+            className='mt-1 w-full rounded-2xl border border-slate-600 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-500 placeholder:text-gray-400 placeholder:italic placeholder:text-sm bg-transparent text-gray-200'
             placeholder='Tu nombre'
           />
         </div>
@@ -90,7 +90,7 @@ export default function Register () {
             value={form.email}
             onChange={onChange}
             required
-            className='mt-1 w-full rounded-lg border border-slate-600 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-500 placeholder:text-gray-400 placeholder:italic placeholder:text-sm bg-transparent text-gray-200'
+            className='mt-1 w-full rounded-2xl border border-slate-600 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-500 placeholder:text-gray-400 placeholder:italic placeholder:text-sm bg-transparent text-gray-200'
             placeholder='tucorreo@dominio.com'
           />
         </div>
@@ -107,7 +107,7 @@ export default function Register () {
               onChange={onChange}
               required
               minLength={6}
-              className='mt-1 w-full rounded-lg border border-slate-600 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-500 placeholder:text-gray-400 placeholder:italic placeholder:text-sm bg-transparent text-gray-200'
+              className='mt-1 w-full rounded-2xl border border-slate-600 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-500 placeholder:text-gray-400 placeholder:italic placeholder:text-sm bg-transparent text-gray-200'
             />
           </div>
           <div>
@@ -121,7 +121,7 @@ export default function Register () {
               onChange={onChange}
               required
               minLength={6}
-              className='mt-1 w-full rounded-lg border border-slate-600 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-500 placeholder:text-gray-400 placeholder:italic placeholder:text-sm bg-transparent text-gray-200'
+              className='mt-1 w-full rounded-2xl border border-slate-600 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-500 placeholder:text-gray-400 placeholder:italic placeholder:text-sm bg-transparent text-gray-200'
             />
           </div>
         </div>
@@ -129,7 +129,7 @@ export default function Register () {
         <button
           type='submit'
           disabled={loading}
-          className='w-full rounded-lg bg-emerald-600 text-white py-2.5 font-semibold hover:bg-emerald-700 transition disabled:opacity-60'
+          className='w-full rounded-2xl bg-emerald-600 text-white py-2.5 font-semibold hover:bg-emerald-700 transition disabled:opacity-60'
         >
           {loading ? 'Creando…' : 'Crear cuenta'}
         </button>

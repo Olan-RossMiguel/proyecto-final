@@ -2,11 +2,10 @@ import {
   Loader,
   CircleUser,
   TriangleAlert,
-  Pencil,
   PencilLine,
   Mail,
-  Popcorn,
   Clock,
+  LoaderCircle,
 } from 'lucide-react'
 import { api } from '../api/client'
 import { useState, useEffect } from 'react'
@@ -66,7 +65,7 @@ export const InfoPerfil = () => {
   if (loading) {
     return (
       <div className='flex justify-center items-center'>
-        <Loader className='animate-spin' size={50} />
+        <LoaderCircle className='animate-spin' size={50} />
       </div>
     )
   }
@@ -87,7 +86,7 @@ export const InfoPerfil = () => {
             <CircleUser size={50} strokeWidth={1} />
 
             <div>
-              <div className='flex text-center align-center justify-center gap-3 border-b border-gray-800 px-2'>
+              <div className='flex text-center align-center justify-between items-center gap-3 border-b border-gray-800 px-2'>
                 <input
                   type='text'
                   className={nameStyles}
