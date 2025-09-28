@@ -28,10 +28,25 @@ router.get("/", async (req, res) => {
 
 // Modificar usuario
 router.put("/:id", async (req, res) => {
+  const userId = Number(req.params.id)
+  // Extraemos solo los campos que permitimos actualizar
+  const { name, email } = req.body
+
+  // TODO: Añadir middleware de autenticación para obtener req.user
+  // if (req.user.id !== userId) {
+  //   return res.status(403).json({ error: "No tienes permiso para actualizar este usuario" });
+  // }
+
   try {
     const usuarioActualizado = await prisma.user.update({
       where: { id: Number(req.params.id) },
       data: req.body,
+      where: { id: userId },
+      // Pasamos solo los datos permitidos. Si un campo es undefined, Prisma lo ignora.
+      data: {
+        name,
+        email,
+      },
     })
     res.json(usuarioActualizado)
   } catch (error) {
