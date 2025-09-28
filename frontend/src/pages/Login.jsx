@@ -49,7 +49,7 @@ export default function Login () {
               value={form.email}
               onChange={onChange}
               required
-              className='mt-1 w-full rounded-lg border border-slate-600 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-500 placeholder:text-gray-400 placeholder:italic placeholder:text-sm bg-transparent text-gray-200'
+              className='mt-1 w-full rounded-2xl border border-slate-600 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-500 placeholder:text-gray-400 placeholder:italic placeholder:text-sm bg-transparent text-gray-200'
               placeholder='tucorreo@dominio.com'
             />
           </div>
@@ -62,7 +62,7 @@ export default function Login () {
               value={form.password}
               onChange={onChange}
               required
-              className='mt-1 w-full rounded-lg border border-slate-600 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-500 placeholder:text-gray-400 placeholder:italic placeholder:text-sm bg-transparent text-gray-200'
+              className='mt-1 w-full rounded-2xl border border-slate-600 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-500 placeholder:text-gray-400 placeholder:italic placeholder:text-sm bg-transparent text-gray-200'
               placeholder='Contraseña'
             />
           </div>
@@ -70,7 +70,7 @@ export default function Login () {
           <button
             type='submit'
             disabled={loading}
-            className='w-full rounded-lg bg-emerald-600 text-white py-2.5 font-semibold hover:bg-emerald-700 transition disabled:opacity-60'
+            className='w-full rounded-2xl bg-emerald-600 text-white py-2.5 font-semibold hover:bg-emerald-700 transition disabled:opacity-60'
           >
             {loading ? 'Entrando…' : 'Entrar'}
           </button>
