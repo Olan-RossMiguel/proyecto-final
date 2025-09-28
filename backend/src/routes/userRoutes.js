@@ -48,7 +48,7 @@ router.put("/:id", async (req, res) => {
         email,
       },
     })
-    res.json(usuarioActualizado)
+    res.json({ message: "Su cuenta ha sido actualizada correctamente" })
   } catch (error) {
     console.error(error)
     res.status(500).json({ error: "Error actualizando usuario" })

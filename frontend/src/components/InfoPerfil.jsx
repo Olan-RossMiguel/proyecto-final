@@ -11,6 +11,9 @@ import {
 import { api } from '../api/client'
 import { useState, useEffect } from 'react'
 import { ModalVerificarAuth } from './ModalVerificarAuth'
+import { useNavigate } from 'react-router-dom'
+import { LoadingFullAbs } from './LoadingFullAbs'
+import { AlertModalFull } from './AlertModalFull'
 
 // --- Clases de estilo para Tailwind CSS ---
 const containerStyles =
@@ -38,10 +41,28 @@ const formHandler = (e) => {
  */
 export const InfoPerfil = () => {
   const [user, setUser] = useState(null)
+  const [form, setForm] = useState(null)
   const [fecha, setFecha] = useState(null)
   const [loading, setLoading] = useState(true)
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [loadingModal, setLoadingModal] = useState(false)
+  const [messageModal, setMessageModal] = useState(false)
   const [isEditingName, setIsEditingName] = useState(false)
+
+  const navigate = useNavigate()
+
+  const handleSubmit = async () => {
+    try {
+      setLoadingModal(true)
+      await api.actualize(user.id, form)
+      setLoadingModal(false)
+      setMessageModal(true)
+    } catch (error) {
+      console.error('Error al actualizar el perfil:', error)
+    } finally {
+      navigate(0)
+    }
+  }
   // Función asíncrona para verificar la autenticación y obtener los datos del perfil.
   useEffect(() => {
     const fetchProfileData = async () => {
@@ -71,8 +92,8 @@ export const InfoPerfil = () => {
     )
   }
 
-  const handleSubmit = async (e) => {
-    e.preventDefault()
+  const onChange = e => {
+    setForm({ ...form, [e.target.name]: e.target.value })
   }
 
   return (
@@ -89,22 +110,25 @@ export const InfoPerfil = () => {
         {/* ==========+ Contenedor de informacion de usuario +============ */}
         <div className={cardStyles} onSubmit={formHandler}>
           {/* Foto de perfil, nombre y correo */}
-
           <div className='flex items-center gap-3'>
+            {loadingModal && <LoadingFullAbs />}
+            {messageModal && <AlertModalFull text='Perfil actualizado' />}
             {/* TODO: añadir logica cuando se integre foto de perfil */}
             <CircleUser size={50} strokeWidth={1} />
 
             <div>
-              <form onSubmit={handleSubmit} className='flex text-center align-center justify-between items-center gap-3 border-b border-gray-800 px-2'>
+              <div className='flex text-center align-center justify-between items-center gap-3 border-b border-gray-800 px-2'>
                 {!isEditingName
                   ? (
                     <h1 className={nameStyles}>{user.name}</h1>
                     )
                   : (
                     <input
+                      name='name'
                       type='text'
                       className={nameStyles}
                       placeholder={user.name}
+                      onChange={onChange}
                       size={user.name.length - 3}
                     />
                     )}
@@ -113,6 +137,7 @@ export const InfoPerfil = () => {
                     <button
                       onClick={() => setIsEditingName(true)}
                       className={editButtonStyles}
+                      type='button'
                     >
                       <span>Editar</span>
                       <span>
@@ -122,7 +147,7 @@ export const InfoPerfil = () => {
                     )
                   : (
                     <button
-                      onClick={() => setIsEditingName(false)}
+                      onClick={() => { setIsEditingName(false); handleSubmit() }}
                       className={editButtonStyles}
                       type='submit'
                     >
@@ -132,7 +157,7 @@ export const InfoPerfil = () => {
                       </span>
                     </button>
                     )}
-              </form>
+              </div>
               <div className='flex items-center justify-between w-full'>
                 <p className={emailStyles}>{user.email}</p>
                 <Mail
@@ -168,9 +193,6 @@ export const InfoPerfil = () => {
 
         {/* ++++++++++++++= Contenedor de listas, contenido y comentarios =+++++++++++++ */}
 
-        <div>
-          <p> Listas, contenido y comentarios </p>
-        </div>
       </div>
     </>
   )

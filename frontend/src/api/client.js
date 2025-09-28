@@ -46,4 +46,6 @@ export const api = {
   logout: () => request('/logout', { method: 'POST' }),
 
   delete: (id) => request(`/usuarios/${id}`, { method: 'delete' }),
+
+  actualize: (id, payload) => request(`/usuarios/${id}`, { method: 'PUT', body: payload }),
 }

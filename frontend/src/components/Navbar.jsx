@@ -35,7 +35,6 @@ export default function Navbar ({ isAuthenticated, user, onLogout }) {
   // Aunque el elemento padre tiene una funcion de verificacion, si layout se carga correctamente al menos una vez, como es un elemento que permanece montado siempre, no vuelve a verificar
   // Esto es paliativo, se debe resolver esta vulnerabilidad en el componente padre @layout
   useEffect(() => {
-    console.log(user)
     // si no hay user, redirigir a login
     if (!user) {
       navigate('/login')
