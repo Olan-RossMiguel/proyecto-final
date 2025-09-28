@@ -6,6 +6,7 @@ import {
   Mail,
   Clock,
   LoaderCircle,
+  Check,
 } from 'lucide-react'
 import { api } from '../api/client'
 import { useState, useEffect } from 'react'
@@ -40,7 +41,7 @@ export const InfoPerfil = () => {
   const [fecha, setFecha] = useState(null)
   const [loading, setLoading] = useState(true)
   const [isModalOpen, setIsModalOpen] = useState(false)
-
+  const [isEditingName, setIsEditingName] = useState(false)
   // Función asíncrona para verificar la autenticación y obtener los datos del perfil.
   useEffect(() => {
     const fetchProfileData = async () => {
@@ -70,15 +71,23 @@ export const InfoPerfil = () => {
     )
   }
 
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+  }
+
   return (
     <>
-
       <div className={containerStyles}>
         {/* Renderizado condicional de modal */}
-        {isModalOpen && <ModalVerificarAuth user={user} closeModal={() => setIsModalOpen(false)} />}
+        {isModalOpen && (
+          <ModalVerificarAuth
+            user={user}
+            closeModal={() => setIsModalOpen(false)}
+          />
+        )}
 
         {/* ==========+ Contenedor de informacion de usuario +============ */}
-        <form className={cardStyles} onSubmit={formHandler}>
+        <div className={cardStyles} onSubmit={formHandler}>
           {/* Foto de perfil, nombre y correo */}
 
           <div className='flex items-center gap-3'>
@@ -86,21 +95,44 @@ export const InfoPerfil = () => {
             <CircleUser size={50} strokeWidth={1} />
 
             <div>
-              <div className='flex text-center align-center justify-between items-center gap-3 border-b border-gray-800 px-2'>
-                <input
-                  type='text'
-                  className={nameStyles}
-                  value={user.name}
-                  placeholder={user.name}
-                  size={user.name.length - 3 || 1}
-                />
-                <button className={editButtonStyles}>
-                  <span>
-                    <PencilLine strokeWidth={2} size={15} />
-                  </span>
-                  <span>Editar</span>
-                </button>
-              </div>
+              <form onSubmit={handleSubmit} className='flex text-center align-center justify-between items-center gap-3 border-b border-gray-800 px-2'>
+                {!isEditingName
+                  ? (
+                    <h1 className={nameStyles}>{user.name}</h1>
+                    )
+                  : (
+                    <input
+                      type='text'
+                      className={nameStyles}
+                      placeholder={user.name}
+                      size={user.name.length - 3}
+                    />
+                    )}
+                {!isEditingName
+                  ? (
+                    <button
+                      onClick={() => setIsEditingName(true)}
+                      className={editButtonStyles}
+                    >
+                      <span>Editar</span>
+                      <span>
+                        <PencilLine strokeWidth={2} size={15} />
+                      </span>
+                    </button>
+                    )
+                  : (
+                    <button
+                      onClick={() => setIsEditingName(false)}
+                      className={editButtonStyles}
+                      type='submit'
+                    >
+                      <span>Confirmar</span>
+                      <span>
+                        <Check strokeWidth={3} size={15} />
+                      </span>
+                    </button>
+                    )}
+              </form>
               <div className='flex items-center justify-between w-full'>
                 <p className={emailStyles}>{user.email}</p>
                 <Mail
@@ -124,12 +156,15 @@ export const InfoPerfil = () => {
           {/* Contenedor de botones de editar y eliminar perfil */}
 
           <div className='flex flex-col w-full gap-2 '>
-            <button className={deleteButtonStyles} onClick={() => setIsModalOpen(true)}>
+            <button
+              className={deleteButtonStyles}
+              onClick={() => setIsModalOpen(true)}
+            >
               <TriangleAlert strokeWidth={2} size={18} />
               <span>Eliminar perfil</span>
             </button>
           </div>
-        </form>
+        </div>
 
         {/* ++++++++++++++= Contenedor de listas, contenido y comentarios =+++++++++++++ */}
 
