@@ -1,6 +1,7 @@
 import { CircleX, TriangleAlert, UserX, X } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { api } from '../api/client'
+import { useNavigate } from 'react-router-dom'
 
 // --- Clases de estilo para Tailwind CSS ---
 
@@ -10,12 +11,16 @@ const editButtonStyles = `${buttonBaseStyles} text-sm text-gray-600 font-medium 
 const deleteButtonStyles = `${buttonBaseStyles} hover:bg-red-600 bg-red-950 border-red-600 text-white font-medium w-full flex items-center gap-2`
 
 export const ModalVerificarAuth = ({ user, closeModal }) => {
+  const navigate = useNavigate()
   const handleDelete = async () => {
     const res = await api.delete(user.id)
-    console.log(res)
-    closeModal()
+    alert(res.message)
+    api.logout()
+    navigate('/login')
   }
   const [isVisible, setIsVisible] = useState(false)
+
+  const onChange = (e) => setForm({ ...form, [e.target.name]: e.target.value })
 
   // Efecto para la animación de entrada del modal
   useEffect(() => {
