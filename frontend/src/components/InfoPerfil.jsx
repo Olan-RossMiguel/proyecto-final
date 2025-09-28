@@ -48,6 +48,7 @@ export const InfoPerfil = () => {
   const [loadingModal, setLoadingModal] = useState(false)
   const [messageModal, setMessageModal] = useState(false)
   const [isEditingName, setIsEditingName] = useState(false)
+  const [isEditingMail, setIsEditingMail] = useState(false)
 
   const navigate = useNavigate()
 
@@ -158,13 +159,52 @@ export const InfoPerfil = () => {
                     </button>
                     )}
               </div>
+
+              {/* Email Edit. */}
+              {/* TODO agregar verificacion */}
               <div className='flex items-center justify-between w-full'>
-                <p className={emailStyles}>{user.email}</p>
-                <Mail
-                  strokeWidth={2}
-                  size={15}
-                  className='text-gray-600 mr-3'
-                />
+                {!isEditingMail
+                  ? (
+                    <h1 className={emailStyles}>{user.email}</h1>
+                    )
+                  : (
+                    <input
+                      name='email'
+                      type='email'
+                      className={`${emailStyles} text-white`}
+                      placeholder={user.email}
+                      onChange={onChange}
+                      size={user.email.length - 4}
+                    />
+                    )}
+                {!isEditingMail
+                  ? (
+                    <button
+                      onClick={() => setIsEditingMail(true)}
+                      className={editButtonStyles}
+                      type='button'
+                    >
+                      <span>Editar</span>
+                      <span className='mr-2'>
+                        <Mail
+                          strokeWidth={2}
+                          size={15}
+                        />
+                      </span>
+                    </button>
+                    )
+                  : (
+                    <button
+                      onClick={() => { setIsEditingMail(false); handleSubmit() }}
+                      className={editButtonStyles}
+                      type='submit'
+                    >
+                      <span>Confirmar</span>
+                      <span>
+                        <Check strokeWidth={3} size={15} />
+                      </span>
+                    </button>
+                    )}
               </div>
             </div>
           </div>
