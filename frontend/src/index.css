@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 @theme {
-  --animate-sparkle: sparkle 1.5s ease-out forwards;
+  --animate-sparkle: sparkle 3s ease-out forwards;
 
   @keyframes sparkle {
     0% {
@@ -50,7 +50,6 @@
       text-shadow: 0 0 6px #6ee7b7, 0 0 10px #10b981, 0 0 18px #34d399;
     }
     74% {
-      transform: scale(0.97);
       text-shadow: 0 0 20px #ffff, 0 0 20px #ffff, 0 0 20px #ffff;
     }
 

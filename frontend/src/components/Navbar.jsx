@@ -32,12 +32,14 @@ export default function Navbar ({ isAuthenticated, user, onLogout }) {
   }, [])
 
   // Este useEffect redirige al login si el usuario no está disponible.
+  // Aunque el elemento padre tiene una funcion de verificacion, si layout se carga correctamente al menos una vez, como es un elemento que permanece montado siempre, no vuelve a verificar
+  // Esto es paliativo, se debe resolver esta vulnerabilidad en el componente padre @layout
   useEffect(() => {
     // si no hay user, redirigir a login
     if (!user) {
       navigate('/login')
     }
-  }, [])
+  }, [user])
 
   const handleAvatarClick = () => {
     setProfileOpen(!profileOpen)
