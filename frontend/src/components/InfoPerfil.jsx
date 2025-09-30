@@ -1,3 +1,6 @@
+// TODO: Refactorizar componente. Lógica de estado y obtención de datos deben abstraerse a un custom hook para cumplir SRP.
+// *Se requiere crear subcomponentes para UI repetida (DRY), mejorar manejo de errores y eliminar la recarga de página en la actualización.
+
 import {
   Loader,
   CircleUser,
@@ -11,7 +14,6 @@ import {
 import { api } from '../api/client'
 import { useState, useEffect } from 'react'
 import { ModalVerificarAuth } from './ModalVerificarAuth'
-import { useNavigate } from 'react-router-dom'
 import { LoadingFullAbs } from './LoadingFullAbs'
 import { AlertModalFull } from './AlertModalFull'
 
@@ -48,11 +50,28 @@ export const InfoPerfil = () => {
   const [loadingModal, setLoadingModal] = useState(false)
   const [messageModal, setMessageModal] = useState(false)
   const [isEditingName, setIsEditingName] = useState(false)
+  const [isEditingMail, setIsEditingMail] = useState(false)
 
-  const navigate = useNavigate()
-
-  const handleSubmit = async () => {
+  const fetchProfileData = async () => {
     try {
+      const userData = await api.profile()
+      setUser(userData)
+      // Convierte la fecha de formato ISO a un objeto Date para poder formatearla.
+      setFecha(new Date(userData.createdAt))
+    } catch (error) {
+      // Captura y muestra en consola cualquier error durante el fetch.
+      console.error('Error al obtener los datos del perfil:', error)
+    } finally {
+      // Se ejecuta siempre, al finalizar el try o el catch para ocultar el loader.
+      setLoading(false)
+    }
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    try {
+      setIsEditingName(false)
+
       setLoadingModal(true)
       await api.actualize(user.id, form)
       setLoadingModal(false)
@@ -60,25 +79,12 @@ export const InfoPerfil = () => {
     } catch (error) {
       console.error('Error al actualizar el perfil:', error)
     } finally {
-      navigate(0)
+      fetchProfileData()
+      setMessageModal(false)
     }
   }
   // Función asíncrona para verificar la autenticación y obtener los datos del perfil.
   useEffect(() => {
-    const fetchProfileData = async () => {
-      try {
-        const userData = await api.profile()
-        setUser(userData)
-        // Convierte la fecha de formato ISO a un objeto Date para poder formatearla.
-        setFecha(new Date(userData.createdAt))
-      } catch (error) {
-        // Captura y muestra en consola cualquier error durante el fetch.
-        console.error('Error al obtener los datos del perfil:', error)
-      } finally {
-        // Se ejecuta siempre, al finalizar el try o el catch para ocultar el loader.
-        setLoading(false)
-      }
-    }
     // Llama a la función al montar el componente.
     fetchProfileData()
   }, [])
@@ -92,7 +98,7 @@ export const InfoPerfil = () => {
     )
   }
 
-  const onChange = e => {
+  const onChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value })
   }
 
@@ -108,7 +114,7 @@ export const InfoPerfil = () => {
         )}
 
         {/* ==========+ Contenedor de informacion de usuario +============ */}
-        <div className={cardStyles} onSubmit={formHandler}>
+        <div className={cardStyles}>
           {/* Foto de perfil, nombre y correo */}
           <div className='flex items-center gap-3'>
             {loadingModal && <LoadingFullAbs />}
@@ -120,51 +126,85 @@ export const InfoPerfil = () => {
               <div className='flex text-center align-center justify-between items-center gap-3 border-b border-gray-800 px-2'>
                 {!isEditingName
                   ? (
-                    <h1 className={nameStyles}>{user.name}</h1>
+                    <>
+                      <h1 className={nameStyles}>{user.name}</h1>
+                      <button
+                        onClick={() => setIsEditingName(true)}
+                        className={editButtonStyles}
+                        type='button'
+                      >
+                        <span>Editar</span>
+                        <span>
+                          <PencilLine strokeWidth={2} size={15} />
+                        </span>
+                      </button>
+                    </>
                     )
                   : (
-                    <input
-                      name='name'
-                      type='text'
-                      className={nameStyles}
-                      placeholder={user.name}
-                      onChange={onChange}
-                      size={user.name.length - 3}
-                    />
-                    )}
-                {!isEditingName
-                  ? (
-                    <button
-                      onClick={() => setIsEditingName(true)}
-                      className={editButtonStyles}
-                      type='button'
+                    <form
+                      onSubmit={handleSubmit}
+                      className='flex justify-between w-full'
                     >
-                      <span>Editar</span>
-                      <span>
-                        <PencilLine strokeWidth={2} size={15} />
-                      </span>
-                    </button>
-                    )
-                  : (
-                    <button
-                      onClick={() => { setIsEditingName(false); handleSubmit() }}
-                      className={editButtonStyles}
-                      type='submit'
-                    >
-                      <span>Confirmar</span>
-                      <span>
-                        <Check strokeWidth={3} size={15} />
-                      </span>
-                    </button>
+                      <input
+                        name='name'
+                        type='text'
+                        className={nameStyles}
+                        placeholder={user.name}
+                        onChange={onChange}
+                        size={user.name.length - 3}
+                        required
+                      />
+                      <button className={editButtonStyles} type='submit'>
+                        <span>Confirmar</span>
+                        <span>
+                          <Check strokeWidth={3} size={15} />
+                        </span>
+                      </button>
+                    </form>
                     )}
               </div>
+
+              {/* Email Edit. */}
+              {/* TODO agregar verificacion */}
               <div className='flex items-center justify-between w-full'>
-                <p className={emailStyles}>{user.email}</p>
-                <Mail
-                  strokeWidth={2}
-                  size={15}
-                  className='text-gray-600 mr-3'
-                />
+                {!isEditingMail
+                  ? (
+                    <>
+                      <h1 className={emailStyles}>{user.email}</h1>
+                      <button
+                        onClick={() => setIsEditingMail(true)}
+                        className={editButtonStyles}
+                        type='button'
+                      >
+                        <span>Editar</span>
+                        <span>
+                          <Mail strokeWidth={2} size={15} />
+                        </span>
+                      </button>
+                    </>
+                    )
+                  : (
+                    <form
+                      onSubmit={handleSubmit}
+                      className='flex justify-between w-full'
+                    >
+                      <input
+                        name='email'
+                        type='email'
+                        className={`${emailStyles} 'text-white'`}
+                        placeholder={user.email}
+                        onChange={onChange}
+                        size={user.email.length - 3}
+                        required
+                      />
+                      <button className={editButtonStyles} type='submit'>
+                        <span>Confirmar</span>
+                        <span>
+                          <Check strokeWidth={3} size={15} />
+                        </span>
+                      </button>
+                    </form>
+                    )}
               </div>
             </div>
           </div>
@@ -192,7 +232,6 @@ export const InfoPerfil = () => {
         </div>
 
         {/* ++++++++++++++= Contenedor de listas, contenido y comentarios =+++++++++++++ */}
-
       </div>
     </>
   )
