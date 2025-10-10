@@ -19,7 +19,7 @@ const prisma = new PrismaClient()
 app.use(cors({
   origin: [
     'http://localhost:5173',
-    'https://proyecto-final-five-indol.vercel.app/' 
+    'https://proyecto-final-five-indol.vercel.app' 
   ],
   credentials: true,
   methods: ["GET","POST","PUT","PATCH","DELETE","OPTIONS"],
