@@ -9,7 +9,7 @@
     "db:studio": "prisma studio",
     "db:check": "prisma db pull",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "star": "node src/app.js",
+    "start": "node src/app.js",
     "dev": "nodemon src/app.js"
   },
   "keywords": [],
