@@ -1,52 +1,15 @@
-import { HatGlasses, Loader } from 'lucide-react'
-import React, { useEffect, useState } from 'react'
+import { InfoPerfil } from '../components/InfoPerfil'
 
-const InfoPerfil = ({ user }) => {
-  const fechaIso = user.createdAt
-  const fecha = new Date(fechaIso)
-
-  return (
-    <div className='w-full px-10 py-10 bg-black/10 rounded-xl border border-slate-800 backdrop-blur-md flex flex-col justify-center items-center'>
-      <HatGlasses size={90} strokeWidth={1} />
-      <h1 className='text-3xl'>{user.name}</h1>
-      <h2 className='italic text-gray-600 pt-3'><span className='text-emerald-600 font-bold'>#Flicker</span> <span className='text-gray-300 font-normal'>desde:</span> {fecha.toLocaleString()}</h2>
-      <p className='text-gray-300'>Direccion de correo: {user.email}</p>
-    </div>
-  )
-}
-
+/**
+ * Página de perfil de usuario.
+ * Obtiene y muestra la información del perfil del usuario autenticado.
+ * Muestra un estado de carga mientras se obtienen los datos.
+ * @returns {JSX.Element} El componente de la página de perfil.
+ */
 export const Profile = () => {
-  const [user, setUser] = useState()
-  const [loading, setLoading] = useState(true)
-
-  useEffect(() => {
-    async function checkAuth () {
-      try {
-        const API_BASE =
-          import.meta.env?.VITE_API_BASE || 'http://localhost:3000/api'
-        const res = await fetch(`${API_BASE}/profile`, {
-          credentials: 'include',
-        })
-        if (res.ok) {
-          const userData = await res.json()
-          setUser(userData)
-        }
-      } catch (error) {
-        console.error('Error al verificar la autenticación:', error)
-      } finally {
-        setLoading(false)
-      }
-    }
-    checkAuth()
-  }, [])
-
-  useEffect(() => {
-    console.log('User:', user)
-  }, [user])
-
   return (
     <>
-      {/* bg */}
+      {/* Contenedor del fondo animado y decorativo */}
       <div className='fixed inset-0 w-full h-full bg-white dark:bg-gray-950 z-0'>
         <svg
           className='absolute inset-0 w-full h-full opacity-[0.15] dark:opacity-[0.07]'
@@ -68,9 +31,9 @@ export const Profile = () => {
         </div>
       </div>
 
-      {/* Main container */}
+      {/* Contenedor principal del contenido de la página */}
       <div className='relative z-30 p-20 text-amber-50'>
-        {loading ? (<div className='flex justify-center items-center'><Loader className='animate-spin' size={50} /></div>) : (<InfoPerfil user={user} />)}
+        <InfoPerfil />
       </div>
     </>
 

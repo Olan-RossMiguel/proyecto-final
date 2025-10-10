@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import Navbar from '../components/Navbar'
 
-import { Loader } from 'lucide-react'
+import { Loader, LoaderCircle } from 'lucide-react'
 
 import Footer from '../components/Footer'
 
@@ -51,7 +51,7 @@ export default function Layout ({ children }) {
     return (
       <div className='min-h-screen bg-black'>
         <div className='flex items-center justify-center min-h-screen'>
-          <Loader className='animate-spin text-emerald-600' size={150} />
+          <LoaderCircle className='animate-spin text-white' size={150} />
         </div>
       </div>
     )
