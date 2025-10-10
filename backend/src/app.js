@@ -37,6 +37,19 @@ app.use("/api/reviews", reviewRouter)
 app.use("/api/likes", reviewLikeRouter)
 app.use("/api", authRouter)
 
+app.get("/api", (_req, res) => {
+  res.json({ 
+    message: "API funcionando correctamente",
+    endpoints: {
+      usuarios: "/api/usuarios",
+      movies: "/api/movies", 
+      reviews: "/api/reviews",
+      likes: "/api/likes",
+      auth: "/api"
+    }
+  })
+})
+
 // Test DB
 async function testDBConnection() {
   try {
