@@ -16,9 +16,11 @@ const app = express()
 const prisma = new PrismaClient()
 
 // CORS: habilitar origen del front y cookies
-const CORS_ORIGIN = "http://localhost:5173"
 app.use(cors({
-  origin: CORS_ORIGIN,
+  origin: [
+    'http://localhost:5173',
+    'https://proyecto-final-five-indol.vercel.app/' 
+  ],
   credentials: true,
   methods: ["GET","POST","PUT","PATCH","DELETE","OPTIONS"],
   allowedHeaders: ["Content-Type","Authorization"],
