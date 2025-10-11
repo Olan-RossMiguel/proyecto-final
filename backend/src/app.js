@@ -27,6 +27,15 @@ app.use(cors({
 app.use(express.json())
 app.use(cookieParser())
 
+
+app.get("/profile", (req, res) => {
+  res.redirect(301, "/api/profile");
+});
+
+app.get("/movies", (req, res) => {
+  res.redirect(301, "/api/movies");
+});
+
 // Rutas
 app.use("/api/usuarios", userRouter)
 app.use("/api/movies", movieRouter)
