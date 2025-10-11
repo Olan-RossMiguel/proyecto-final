@@ -13,8 +13,8 @@ export default function Layout ({ children }) {
   useEffect(() => {
     async function checkAuth () {
       try {
-        const API_BASE = import.meta.env?.VITE_API_BASE || 'http://localhost:3000/api'
-        const res = await fetch(`${API_BASE}/profile`, {
+        const API_BASE = import.meta.env?.VITE_API_BASE || 'http://localhost:3000'
+        const res = await fetch(`${API_BASE}/api/profile`, {
           credentials: 'include'
         })
 
@@ -35,7 +35,7 @@ export default function Layout ({ children }) {
   const handleLogout = async () => {
     try {
       const API_BASE = import.meta.env?.VITE_API_BASE || 'http://localhost:3000/api'
-      await fetch(`${API_BASE}/auth/logout`, {
+      await fetch(`${API_BASE}/api/logout`, {
         method: 'POST',
         credentials: 'include'
       })
