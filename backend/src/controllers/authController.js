@@ -28,7 +28,12 @@ export const register = async (req, res) => {
             { expiresIn: "1d" }
         )
 
-        res.cookie("token", token, { httpOnly: true })
+        res.cookie("token", token, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production', 
+            sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax', 
+            maxAge: 24 * 60 * 60 * 1000 
+        })
 
         res.json({
             id: userSaved.id,
@@ -48,6 +53,9 @@ export const login = async (req, res) => {
     const { email, password } = req.body
 
     try {
+        console.log('🔐 Intento de login para:', email)
+        console.log('🌐 Origen de la request:', req.headers.origin)
+        
         const userFound = await prisma.user.findUnique({ where: { email } })
         if (!userFound) return res.status(400).json({ message: "Usuario no encontrado" })
 
@@ -60,7 +68,14 @@ export const login = async (req, res) => {
             { expiresIn: "1d" }
         )
 
-        res.cookie("token", token, { httpOnly: true })
+        console.log('🍪 Cookie configurada para dominio:', req.headers.origin)
+        
+        res.cookie("token", token, {
+            httpOnly: true,
+            secure: true,
+            sameSite: 'none',
+            maxAge: 24 * 60 * 60 * 1000
+        })
 
         res.json({
             id: userFound.id,
@@ -71,36 +86,42 @@ export const login = async (req, res) => {
         })
 
     } catch (error) {
+        console.log('❌ Error en login:', error)
         res.status(500).json({ message: error.message })
     }
 }
 
 // Logout
 export const logout = (req, res) => {
-    res.cookie("token", "", { expires: new Date(0) })
-    return res.sendStatus(200)
+  res.cookie("token", "", {
+    expires: new Date(0),
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+    httpOnly: true
+  })
+  return res.sendStatus(200)
 }
 
 // Perfil
 export const profile = async (req, res) => {
-  try {
-    const userFound = await prisma.user.findUnique({ 
-      where: { id: req.user.id },
-      select: {
-        id: true,
-        name: true,
-        email: true,
-        createdAt: true,
-        updatedAt: true,
-      }
-    })
+    try {
+        const userFound = await prisma.user.findUnique({
+            where: { id: req.user.id },
+            select: {
+                id: true,
+                name: true,
+                email: true,
+                createdAt: true,
+                updatedAt: true,
+            }
+        })
 
-    if (!userFound) return res.status(400).json({ message: "Usuario no encontrado" })
+        if (!userFound) return res.status(400).json({ message: "Usuario no encontrado" })
 
-    // Devuelve los datos del usuario, no solo un mensaje
-    res.json(userFound)
+        // Devuelve los datos del usuario, no solo un mensaje
+        res.json(userFound)
 
-  } catch (error) {
-    res.status(500).json({ message: error.message })
-  }
+    } catch (error) {
+        res.status(500).json({ message: error.message })
+    }
 }

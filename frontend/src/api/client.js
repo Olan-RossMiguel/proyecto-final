@@ -20,9 +20,6 @@ async function request (path, { method = 'GET', body } = {}) {
   return data
 }
 
-/**
- * Objeto que agrupa los endpoints de la API para un uso más sencillo.
- */
 export const api = {
   login: (payload) => request('/api/login', { method: 'POST', body: payload }),
   register: (payload) => request('/api/register', { method: 'POST', body: payload }),
