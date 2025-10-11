@@ -15,10 +15,9 @@ config()
 const app = express()
 const prisma = new PrismaClient()
 
-// CORS: habilitar origen del front y cookies
-const CORS_ORIGIN = "http://localhost:5173"
+
 app.use(cors({
-  origin: CORS_ORIGIN,
+  origin: true, 
   credentials: true,
   methods: ["GET","POST","PUT","PATCH","DELETE","OPTIONS"],
   allowedHeaders: ["Content-Type","Authorization"],
@@ -34,6 +33,19 @@ app.use("/api/movies", movieRouter)
 app.use("/api/reviews", reviewRouter)
 app.use("/api/likes", reviewLikeRouter)
 app.use("/api", authRouter)
+
+app.get("/api", (_req, res) => {
+  res.json({ 
+    message: "API funcionando correctamente",
+    endpoints: {
+      usuarios: "/api/usuarios",
+      movies: "/api/movies", 
+      reviews: "/api/reviews",
+      likes: "/api/likes",
+      auth: "/api"
+    }
+  })
+})
 
 // Test DB
 async function testDBConnection() {
