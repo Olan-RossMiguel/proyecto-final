@@ -53,6 +53,9 @@ export const login = async (req, res) => {
     const { email, password } = req.body
 
     try {
+        console.log('🔐 Intento de login para:', email)
+        console.log('🌐 Origen de la request:', req.headers.origin)
+        
         const userFound = await prisma.user.findUnique({ where: { email } })
         if (!userFound) return res.status(400).json({ message: "Usuario no encontrado" })
 
@@ -65,10 +68,12 @@ export const login = async (req, res) => {
             { expiresIn: "1d" }
         )
 
+        console.log('🍪 Cookie configurada para dominio:', req.headers.origin)
+        
         res.cookie("token", token, {
             httpOnly: true,
-            secure: process.env.NODE_ENV === 'production',
-            sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+            secure: true,
+            sameSite: 'none',
             maxAge: 24 * 60 * 60 * 1000
         })
 
@@ -81,6 +86,7 @@ export const login = async (req, res) => {
         })
 
     } catch (error) {
+        console.log('❌ Error en login:', error)
         res.status(500).json({ message: error.message })
     }
 }
