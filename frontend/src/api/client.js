@@ -1,4 +1,4 @@
-const API_BASE = import.meta.env?.VITE_API_BASE || 'http://localhost:3000/api'
+const API_BASE = import.meta.env?.VITE_API_BASE || 'http://localhost:3000'
 
 /**
  * Función genérica para realizar peticiones a la API.
