@@ -7,7 +7,7 @@ export default function Home () {
   const [err, setErr] = useState('')
 
   const API_BASE = useMemo(
-    () => import.meta.env?.VITE_API_BASE || 'http://localhost:3000/api',
+    () => import.meta.env?.VITE_API_BASE || 'http://localhost:3000',
     []
   )
 
@@ -18,7 +18,7 @@ export default function Home () {
       setLoading(true)
       setErr('')
       try {
-        const res = await fetch(`${API_BASE}/movies`, {
+        const res = await fetch(`${API_BASE}/api/movies`, {
           credentials: 'include',
         })
         if (!res.ok) {
